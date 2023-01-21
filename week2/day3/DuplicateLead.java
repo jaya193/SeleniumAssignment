@@ -4,20 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class LoginPage {
+public class DuplicateLead {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-	/*	1. Launch leaptaps.com/opentaps
-		2. Enter the username as DemoSalesManager
-		3. Enter the password as crmsfa
-		4. Click on Login
-		5. Click on CRM/SFA link
-		6. Click on Leads
-		7. Click on Create Leads
-		8. Fill Company Name, First Name, Last Name
-		9. Click on Create Lead button*/
-		
 		//open chrome browser
 		ChromeDriver driver = new ChromeDriver();
 		//load the url
@@ -47,36 +37,39 @@ public class LoginPage {
 		driver.findElement(By.id("createLeadForm_primaryEmail")).sendKeys("pjayasri@gmail.com");
 		//14. Click on Create Lead button
 		 driver.findElement(By.name("submitButton")).click();
-		//15.Click on edit button
-		 driver.findElement(By.linkText("Edit")).click();
-		 //16.clear the description textbox 
-		 driver.findElement(By.id("updateLeadForm_description")).clear();
-		 //17.Fill important note 
-		 driver.findElement(By.id("updateLeadForm_importantNote")).sendKeys("Selenium Version 4.6 no need manage webdriver");
-		 //18. click update -id ext-gen611
-		 //driver.findElement(By.id("ext-gen611")).click();
-		 WebElement updatebtn = driver.findElement(By.name("submitButton"));
-		 String update = updatebtn.getAttribute("value");
-		 System.out.println("update:clicked success-->"+update);
-		 if(update.equalsIgnoreCase("Update"))
+		 //15.get the title of result page
+		 String title_dup = driver.getTitle();
+		 System.out.println("Title bfr duplicate lead:"+title_dup);
+		 //16.Click on duplicate button 
+		 driver.findElement(By.linkText("Duplicate Lead")).click();
+		 //17. clear company name & etr new compnay name -
+		 WebElement ele_companynme = driver.findElement(By.id("createLeadForm_companyName"));
+		 ele_companynme.clear();
+		 ele_companynme.sendKeys("TestLeaf Organisation");
+		 //18.clear first name & etr new first name 
+		 WebElement ele_firstnme = driver.findElement(By.id("createLeadForm_firstName"));
+		 ele_firstnme.clear();
+		 ele_firstnme.sendKeys("Jaisri");
+		 //19.Click on create Lead button -value Create Lead
+		 WebElement dup_creatleadbtn = driver.findElement(By.name("submitButton"));
+		 String dubPgbtn = dup_creatleadbtn.getAttribute("value");
+		 System.out.println("dup_creatleadbtn:clicked success-->"+dubPgbtn);
+		 if(dubPgbtn.equals("Create Lead"))
 		 {
-		 System.out.println("Found update button in the  page");
-		 updatebtn.click();
-		 }
+			  System.out.println("Found Create lead button in Duplicate lead page");
+			  dup_creatleadbtn.click();
+				 }
 		 else
 		 {
-			 System.out.println("NOt Found update button in the  page");	 
+			 System.out.println("Not Found Create lead button in Duplicate lead page");
 		 }
 		 
-		 //19.get the title of result page
-		 String title = driver.getTitle();
-		 System.out.println("Title:"+title);
+		 //20 get title of result page
+		 String title_res = driver.getTitle();
+		 System.out.println("Title after duplicate lead click:"+title_res);
 		 
 		 
 		 
-		 
-		
-		
 
 	}
 
